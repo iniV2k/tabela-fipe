@@ -13,15 +13,15 @@ public class SearchVehicleService {
     private final FipeVehicleClient fipeVehicleClient = new FipeVehicleClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private <T extends Identifiable> void getList(String json, Class<T> clazz) {
+    private <T extends Identifiable> List<T> getList(String json, Class<T> clazz) {
         CollectionType collectionType = mapper.getTypeFactory()
                 .constructCollectionType(List.class, clazz);
         try {
-            List<T> list = mapper.readValue(json, collectionType);
-            list.forEach(l -> System.out.printf("[%s] %s%n", l.code(), l.name()));
+            return mapper.readValue(json, collectionType);
         } catch (JsonProcessingException e) {
             System.out.println("Erro ao processar JSON: " + e.getMessage());
         }
+        return List.of();
     }
 
     private void getVehicle(String json) {
@@ -33,10 +33,14 @@ public class SearchVehicleService {
         }
     }
 
-    public void listBrands(VehicleType vehicleType) {
-        String json = fipeVehicleClient.searchBrands(vehicleType);
-        getList(json, Brand.class);
+    public List<Brand> listBrands(VehicleType vehicleType) {
+        return getList(fipeVehicleClient.searchBrands(vehicleType), Brand.class);
     }
+
+//    public void listBrands(VehicleType vehicleType) {
+//        String json = fipeVehicleClient.searchBrands(vehicleType);
+//        getList(json, Brand.class);
+//    }
 
     public void listModels(VehicleType vehicleType, String codeBrand) {
         String json = fipeVehicleClient.searchModels(vehicleType, codeBrand);
