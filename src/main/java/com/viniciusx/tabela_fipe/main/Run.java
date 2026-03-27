@@ -1,7 +1,9 @@
 package com.viniciusx.tabela_fipe.main;
 
 import com.viniciusx.tabela_fipe.domain.model.Brand;
+import com.viniciusx.tabela_fipe.domain.model.Model;
 import com.viniciusx.tabela_fipe.domain.model.VehicleType;
+import com.viniciusx.tabela_fipe.domain.model.Year;
 import com.viniciusx.tabela_fipe.service.SearchVehicleService;
 
 import java.util.List;
@@ -20,7 +22,12 @@ public class Run {
             String vehicleTypeStr = sc.nextLine();
             VehicleType vehicleType = VehicleType.fromPath(vehicleTypeStr);
             List<Brand> brands = searchVehicleService.listBrands(vehicleType);
-            brands.forEach(System.out::println); // ok
+            List<Model> models = searchVehicleService.listModels(vehicleType, "56");
+            List<Year> years = searchVehicleService.listYears(vehicleType, "56", "8942");
+            years.forEach(System.out::println);
+            System.out.println(searchVehicleService.getVehicle(vehicleType, "56", "8942", "2022-5"));
+
+
 //            System.out.print("Digite o código da marca desejada: ");
 //            String codeBrand = sc.nextLine();
 //            searchVehicleService.listModels(vehicleType, codeBrand);
