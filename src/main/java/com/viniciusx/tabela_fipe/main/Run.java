@@ -15,18 +15,9 @@ public class Run {
         System.out.print("Digite o código da opção desejada: ");
 
         try(Scanner sc = new Scanner(System.in)) {
-            String vehicleTypeStr = sc.nextLine();
-            VehicleType vehicleType = VehicleType.fromPath(vehicleTypeStr);
-            searchVehicleService.listBrands(vehicleType);
-            System.out.print("Digite o código da marca desejada: ");
-            String codeBrand = sc.nextLine();
-            searchVehicleService.listModels(vehicleType, codeBrand);
-            System.out.print("Digite o código do modelo desejado: ");
-            String codeModel = sc.nextLine();
-            searchVehicleService.listYears(vehicleType, codeBrand, codeModel);
-            System.out.print("Digite o código do ano desejado: ");
-            String codeYear = sc.nextLine();
-            searchVehicleService.listVehicle(vehicleType, codeBrand, codeModel, codeYear);
+            System.out.print("Digite o tipo de veículo a ser consultado: ");
+            VehicleType vehicleType = VehicleType.fromPath(sc.nextLine().trim());
+
         }
 
     }
