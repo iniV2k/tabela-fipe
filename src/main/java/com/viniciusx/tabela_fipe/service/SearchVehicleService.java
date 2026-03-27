@@ -45,4 +45,10 @@ public class SearchVehicleService {
     public List<Year> listYears(VehicleType vehicleType, String codeBrand, String codeYear) {
         return getList(fipeVehicleClient.searchYears(vehicleType, codeBrand, codeYear), Year.class);
     }
+
+    public <T extends Identifiable> List<T> filterSearch(List<T> list, String filter) {
+        return list.stream()
+                .filter(t -> t.name().toLowerCase().contains(filter.toLowerCase()))
+                .toList();
+    }
 }
