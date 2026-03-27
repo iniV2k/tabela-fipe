@@ -18,9 +18,7 @@ public class SearchVehicleService {
                 .constructCollectionType(List.class, clazz);
         try {
             List<T> list = mapper.readValue(json, collectionType);
-            list.forEach(l -> {
-                System.out.printf("[%s] %s%n", l.code(), l.name());
-            });
+            list.forEach(l -> System.out.printf("[%s] %s%n", l.code(), l.name()));
         } catch (JsonProcessingException e) {
             System.out.println("Erro ao processar JSON: " + e.getMessage());
         }

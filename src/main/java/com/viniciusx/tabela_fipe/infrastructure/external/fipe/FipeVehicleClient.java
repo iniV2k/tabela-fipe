@@ -18,16 +18,15 @@ public class FipeVehicleClient implements SearchVehicle {
                 .addHeader("accept", "application/json")
                 .addHeader("content-type", "application/json")
                 .build();
-        String json = "";
 
         try(Response response = client.newCall(req).execute()) {
             if (response.body() != null) {
-                json =  response.body().string();
+                return response.body().string();
             }
         } catch (IOException | NullPointerException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        return json;
+        return "";
     }
 
     @Override
